@@ -1,0 +1,72 @@
+# The dataset a cotral-maintenance run reads: every input file, where it came from, and its sha256.
+#
+# `cotral inputs check` verifies the files here against their sha256; `cotral inputs fetch` gets a missing
+# file from its `url` (and refuses it when the bytes differ: a "latest" URL has moved on, and the pinned
+# bytes are the ones in this repository). For another city or operator: a repository like this one with
+# its own GTFS feed, OSM extracts covering its network, and reference images of its stop signs.
+#
+# role:  gtfs        the operator's GTFS feed, zipped (unzipped into GTFS_COTRAL/ by `cotral inputs fetch`)
+#        osm         OpenStreetMap extracts covering the network (`cotral osm build` reads them all)
+#        sign        the explorer's reference image of the operator's stop sign
+#        lookalike   images of signs the explorer must not take for a stop sign
+#        reference   ground truth for experiments, not read by the pipeline
+# file:  relative to this file
+# data_date: when the data was current; retrieved: when it was downloaded
+
+name = "cotral-2026-11"
+description = "Cotral (Lazio, Italy): the GTFS feed of 2026-10-28 and the OSM extracts of 2026-11-06"
+
+[[source]]
+role = "gtfs"
+file = "GTFS_COTRAL.zip"
+url = "http://travel.mob.cotralspa.it:7777/GTFS/GTFS_COTRAL.zip"
+sha256 = "4095761ffcbb5d9e3942abc77cabb1d7afd1ab00b5bae91f432d3282594ead9b"
+data_date = "2026-10-28"
+license = "unknown: check Cotral S.p.A.'s terms before redistributing"
+
+[[source]]
+role = "osm"
+file = "osm/centro-latest.osm.pbf"
+url = "https://download.geofabrik.de/europe/italy/centro-latest.osm.pbf"
+sha256 = "172e1d3dcde4b87badaca50c2a8715fc02c8259de659522e9d1f68f4b53f7df6"
+md5 = "da80dac1fba30afe67a4892837afcb87"  # Geofabrik's, in osm/centro-latest.osm.pbf.md5
+data_date = "2026-11-06T21:21:21Z"         # the extract's replication timestamp
+retrieved = "2026-11-07"
+license = "ODbL 1.0, (c) OpenStreetMap contributors, extract by Geofabrik GmbH"
+
+[[source]]
+role = "osm"
+file = "osm/sud-latest.osm.pbf"
+url = "https://download.geofabrik.de/europe/italy/sud-latest.osm.pbf"
+sha256 = "d1e0d08cfc09e8948936738e23304f41cff6deba9cd04a3866dc665c56bd2877"
+md5 = "4261e19768fb8ba1a237f02bf95703d2"
+data_date = "2026-11-06T21:21:21Z"
+retrieved = "2026-11-07"
+license = "ODbL 1.0, (c) OpenStreetMap contributors, extract by Geofabrik GmbH"
+
+[[source]]
+role = "sign"
+file = "GROUND_TRUTH/stop_sign_reference.png"
+sha256 = "8caa5880c5687a1a3ad11cec83d3fdd842816f96499a56d5d18481e60d2a74f2"
+
+[[source]]
+role = "lookalike"
+file = "GROUND_TRUTH/lookalikes/blu_signs.png"
+sha256 = "678c3c719cd8135f2fd6f5d649ae9f9aefdec5a5d837b408bf9652dd79494684"
+
+[[source]]
+role = "lookalike"
+file = "GROUND_TRUTH/lookalikes/crossing.png"
+sha256 = "6026a6038a445e1a20b7d15a7d5588d2d8780e487b8332c0369a5155373ad144"
+
+[[source]]
+role = "reference"
+file = "GROUND_TRUTH/bus_stops_new_coordinates.xlsx"
+sha256 = "6f55a51bc27a24cd92ae52eb29499d4a18c85b0e94d1a5d22de0bba3f555e581"
+description = "verified positions of a sample of stops (experiments/explore/ground_truth.py)"
+
+[[source]]
+role = "reference"
+file = "GROUND_TRUTH/OSM_Stop_Points_Excel.xlsx"
+sha256 = "1cd87a0dec7f6c43e88d4c4ccabbed85daa8d5ee4f1e36bbc48d69c90d17627b"
+description = "OSM stop points (experiments)"
